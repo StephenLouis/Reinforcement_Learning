@@ -4,6 +4,7 @@
 ## 1.问题描述
 <div align=center>
 <img src="https://img-blog.csdnimg.cn/20190529100945788.png")
+</div> 
 
 	
 在该项目中，你将使用强化学习算法（本文使用的**Q-Learning**），实现一个自动走迷宫的机器人。
@@ -36,7 +37,9 @@ from maze_env import Maze
 env = Maze()	#迷宫可以自定义，这里我们生成的是 5*5 的迷宫
 env.mainloop()
 ```
-<div align=center><img src="https://img-blog.csdnimg.cn/20190529100945788.png")</div>   
+<div align=center>
+<img src="https://img-blog.csdnimg.cn/20190529100945788.png")
+</div>   
 #### 2.2.2 定义动作
 &emsp;&emsp;接下来，定义机器人是如何选择行动的。这里需要引入增强学习中**epsilon greedy**的概念。因为在初始阶段, 随机的探索环境, 往往比固定的行为模式要好, 所以这也是累积经验的阶段, 我们希望探索者不会那么贪婪(greedy)。说说我的理解，上图迷宫中，当机器人第一次找到黄金后，如果不控制他的贪婪程度，那么很可能他每次都会直奔去，加入地图中还有第二个黄金，则很有可能被忽略（即缺少对地图的完全搜索）。
 &emsp;&emsp;所以**epsilon**就是用来控制贪婪程度的值。**epsilon**可以随着探索时间不断提升(越来越贪婪), 不过在这个例子中, 我们就固定成 **epsilon** = 0.9, 90% 的时间是选择最优策略, 10% 的时间来探索。
