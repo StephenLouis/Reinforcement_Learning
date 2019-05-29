@@ -80,10 +80,10 @@ class Maze(tk.Tk, object):
             fill='red')
 
         # create terminus
-        barrier_center = origin + np.array([UNIT * 4,UNIT * 4])
-        self.barrier = self.canvas.create_rectangle(
-            barrier_center[0] - 15, barrier_center[1] - 15,
-            barrier_center[0] + 15, barrier_center[1] + 15,
+        terminus = origin + np.array([UNIT * 4,UNIT * 4])
+        self.terminus = self.canvas.create_rectangle(
+            terminus[0] - 15, terminus[1] - 15,
+            terminus[0] + 15, terminus[1] + 15,
             fill='green')
 
 
@@ -125,21 +125,29 @@ class Maze(tk.Tk, object):
 
         # reward function
         if s_ == self.canvas.coords(self.oval):
-            reward = 1
+            reward = -30
             done = True
             s_ = 'terminal'
+
         elif s_ in [self.canvas.coords(self.barrier1),
                     self.canvas.coords(self.barrier2),
                     self.canvas.coords(self.barrier3),
                     self.canvas.coords(self.barrier4),
                     self.canvas.coords(self.barrier5),
                     self.canvas.coords(self.barrier6)]:
-            reward = -1
+            reward = -10
             done = True
             s_ = 'terminal'
+
+        elif s_ == self.canvas.coords(self.terminus):
+            reward = 50
+            done = True
+            s_ = 'terminal'
+
         else:
-            reward = 0
+            reward = -1
             done = False
+
 
         return s_, reward, done
 
